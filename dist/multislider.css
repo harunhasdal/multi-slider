@@ -1,0 +1,67 @@
+/*
+ *  multi-slider - v0.1.0
+ *  A multi-slider bar jQuery plugin.
+ *  http://components.rmalabs.com/multi-slider
+ *
+ *  Made by Harun Hasdal
+ *  Under MIT License
+ */
+
+.multibar-slider{
+	height: 400px;
+	width: 70px;
+	max-height: 400px;
+	overflow-y: hidden;
+}
+
+.multibar-slider .bucket-collection{
+	height: 100%;
+	width: 60px;
+	list-style: none;
+	padding: 0;
+	margin-left: 5px;
+}
+
+.multibar-slider .bucket{
+	position: relative;
+	color: white;
+	background-color: #eeeeee;
+}
+
+.multibar-slider .bucket span{
+	position: absolute;
+	top: 5px;
+	height: 20px;
+	width: 100%;
+	text-align: center;
+}
+
+.multibar-slider .bucket .handle{
+	position: absolute;
+	bottom: 0px;
+	left: -5px;
+	height: 6px;
+	width: 70px;
+	background-color: gray;
+	cursor: pointer;
+}
+
+
+.multibar-slider .bucket:last-child .handle{
+	display: none;
+}
+
+.multibar-slider .dragging .bucket.active{
+	font-weight: bold;
+}
+
+.multibar-slider .dragging .bucket:not(.active){
+	opacity: 0.2;
+}
+
+.multibar-slider .dragging .bucket.active .handle{
+	background-color: black;
+	cursor: pointer;
+}
+
+
