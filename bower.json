@@ -1,0 +1,18 @@
+{
+	"name": "multi-slider",
+	"version": "0.1.0",
+	"homepage": "http://components.rmalabs.com/multi-slider",
+	"authors": [
+		"Harun Hasdal <harunhasdal@gmail.com>"
+	],
+	"description": "A multi-slider bar jQuery plugin.",
+	"main": "src/multislider.js",
+	"keywords": [
+		"jquery",
+		"plugin",
+		"ui-component",
+		"jquery-plugin",
+		"multi-slider"
+	],
+	"license": "MIT"
+}
