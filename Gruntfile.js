@@ -47,12 +47,42 @@ module.exports = function(grunt) {
 			}
 		},
 
-		// watch for changes to source
-		// Better than calling grunt a million times
-		// (call 'grunt watch')
+		// The actual grunt server settings
+		connect: {
+			options: {
+				port: 9000,
+				open: true,
+				livereload: 35729,
+				// Change this to '0.0.0.0' to access the server from outside
+				hostname: 'localhost'
+			},
+			livereload: {
+				options: {
+					middleware: function(connect) {
+						return [
+							connect.static('demo'),
+							connect().use('/src', connect.static('./src')),
+						];
+					}
+				}
+			}
+		},
+
 		watch: {
-		    files: ['src/*'],
-		    tasks: ['default']
+		    files: ['src/*', 'demo/*'],
+		    tasks: ['jshint'],
+		    options: {
+		    	livereload: true
+		    },
+			livereload: {
+				options: {
+					livereload: '<%= connect.options.livereload %>'
+				},
+				files: [
+					'**/*.html',
+					'**/*.css'
+				]
+			}
 		}
 
 	});
@@ -61,7 +91,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks("grunt-contrib-connect");
 
+
+	grunt.registerTask("serve",['connect:livereload','watch']);
 	grunt.registerTask("build", ["concat", "uglify"]);
 	grunt.registerTask("default", ["jshint", "build"]);
 	grunt.registerTask("travis", ["default"]);
