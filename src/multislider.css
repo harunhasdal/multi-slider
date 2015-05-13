@@ -6,7 +6,7 @@
 	overflow-y: hidden;
 }
 
-.multibar-slider-list{
+.multibar-slider .bucket-collection{
 	height: 100%;
 	width: 60px;
 	list-style: none;
@@ -14,9 +14,10 @@
 	margin-left: 5px;
 }
 
-.multibar-slider-list .bucket{
+.multibar-slider .bucket{
 	position: relative;
 	color: white;
+	background-color: #eeeeee;
 }
 
 .multibar-slider .bucket span{

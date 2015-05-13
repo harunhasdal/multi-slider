@@ -61,9 +61,9 @@ Following css classes are necessary for the component to function correctly
 
 .multibar-slider
 
-.multibar-slider-list
+.multibar-slider .bucket-collection
 
-.multibar-slider-list .bucket
+.multibar-slider .bucket
 
 .multibar-slider .bucket span
 

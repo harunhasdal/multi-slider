@@ -18,7 +18,7 @@
 
 	$.extend(Plugin.prototype, {
 		init: function () {
-			var domTree = $('<div class="multibar-slider-list"></div>');
+			var domTree = $('<div class="bucket-collection"></div>');
 			for (var i in this.settings.buckets) {
 				domTree.append(
 					$('<div></div>')
