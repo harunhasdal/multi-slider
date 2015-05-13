@@ -15,6 +15,10 @@
 2. Include plugin's code:
 
 	```html
+	<link rel="stylesheet" href="dist/multislider.css">
+	```
+
+	```html
 	<script src="dist/multi-slider.min.js"></script>
 	```
 
