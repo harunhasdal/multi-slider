@@ -1,18 +1,73 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>jQuery Boilerplate</title>
+		<title>Vertical Multi Slider</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+		<link rel="stylesheet" href="../src/multislider.css">
 		<script src="../src/multislider.js"></script>
+		<style type="text/css">
+div.tory{
+	background-color: #043140;
+}
+
+div.labour{
+	background-color: #F2EA61;
+}
+
+div.other{
+	background-color: #F9A532;
+}
+
+#simple {
+	position: relative;
+}
+
+#simple .copy{
+	position: absolute;
+	left: 100px;
+	top:100px;
+}
+
+code, pre{
+	background-color: #eeeeee;
+}
+
+		</style>
 	</head>
 	<body>
-		<div id="element"></div>
-		<script>
+		<section id="simple">
+			<h2>Simple verticle multi slider bar</h2>
+
+			<div id="demo-1"></div>
+
+			<div class="copy">
+			<p>This demo is initialised with
+			<code><pre>buckets:[{key:'tory',value: 40}, {key: 'labour', value: 40}, {key: 'other', value: 20}]</pre></code>
+			And css rules
+			<code><pre>div.tory{
+	background-color: #043140;
+}
+
+div.labour{
+	background-color: #F2EA61;
+}
+
+div.other{
+	background-color: #F9A532;
+}
+			</pre></code>
+			</p>
+			</div>
+			<script>
 			$(function() {
-				$("#element").multiSlider({
-					propertyName: "a custom value"
+				$("#demo-1").multiSlider({
+					buckets:[{key:'tory',value: 40}, {key: 'labour', value: 40}, {key: 'other', value: 20}]
 				});
 			});
-		</script>
+			</script>
+
+		</section>
+
+
 	</body>
 </html>
