@@ -87,7 +87,29 @@ module.exports = function(grunt) {
 					'**/*.css'
 				]
 			}
-		}
+		},
+
+		awsConfig: grunt.file.exists('aws-credentials.json')?grunt.file.readJSON('aws-credentials.json'):{'accessKeyId':'undefined'},
+
+		s3: {
+			options: {
+				accessKeyId: "<%= awsConfig.accessKeyId %>",
+				secretAccessKey: "<%= awsConfig.secretAccessKey %>",
+				bucket: "components.rmalabs.com",
+				region: "eu-west-1",
+				access: "public-read",
+				gzip: true
+			},
+			publish: {
+				files: [{
+			      src: "demo/index.html",
+			      dest: "multi-slider/index.html"
+			    },{
+			      src: "dist/*",
+			      dest: "multi-slider/"
+			    }]
+			}
+		},
 
 	});
 
@@ -96,11 +118,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-contrib-connect");
+	grunt.loadNpmTasks("grunt-aws");
 
 
 	grunt.registerTask("serve",['connect:livereload','watch']);
 	grunt.registerTask("build", ["concat", "uglify"]);
 	grunt.registerTask("default", ["jshint", "build"]);
 	grunt.registerTask("travis", ["default"]);
+	grunt.registerTask("deploy", ["build","s3:publish"]);
 
 };
