@@ -22,9 +22,13 @@ module.exports = function(grunt) {
 			options: {
 				banner: "<%= meta.banner %>"
 			},
-			dist: {
+			js: {
 				src: ["src/multislider.js"],
 				dest: "dist/multislider.js"
+			},
+			css: {
+				src: ["src/multislider.css"],
+				dest: "dist/multislider.css"
 			}
 		},
 
@@ -61,7 +65,7 @@ module.exports = function(grunt) {
 					middleware: function(connect) {
 						return [
 							connect.static('demo'),
-							connect().use('/src', connect.static('./src')),
+							connect().use('/dist', connect.static('./src')),
 						];
 					}
 				}
