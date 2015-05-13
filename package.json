@@ -29,6 +29,8 @@
       "url": "https://github.com/harunhasdal"
     }
   ],
+  "files": ["dist", "package.json", "README.md", "demo"],
+  "main": "dist/multislider.js",
   "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.5",
