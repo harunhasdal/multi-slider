@@ -73,11 +73,11 @@ module.exports = function(grunt) {
 		},
 
 		watch: {
-		    files: ['src/*', 'demo/*'],
-		    tasks: ['jshint'],
-		    options: {
-		    	livereload: true
-		    },
+	    files: ['src/*', 'demo/*'],
+	    tasks: ['jshint'],
+	    options: {
+	    	livereload: true
+	    },
 			livereload: {
 				options: {
 					livereload: '<%= connect.options.livereload %>'
