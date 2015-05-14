@@ -77,7 +77,7 @@
 					domTree.removeEventListener('mouseup', upEventHandler);
 					bar.classList.remove('dragging');
 					currentBucket.classList.remove('active');
-				}
+				};
 
 				domTree.addEventListener('mousemove', moveEventHandler);
 

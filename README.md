@@ -1,18 +1,12 @@
 # Multi Slider Bar
 
-### A multi slider bar jquery plugin
+### A multi slider bar component
 
 
 
 ## Usage
 
-1. Include jQuery:
-
-	```html
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-	```
-
-2. Include plugin's code:
+1. Include component code:
 
 	```html
 	<link rel="stylesheet" href="dist/multislider.css">
@@ -22,17 +16,17 @@
 	<script src="dist/multi-slider.min.js"></script>
 	```
 
-3. Call the plugin:
+2. Instantiate the component:
 
 	```javascript
-	$("#element").multiSlider({
+	var multiSlider = new MultiSlider(document.getElementById("element"),{
 		buckets:[{key:'class1',value: 50}, {key: 'class2', value: 50}]
 	});
 	```
 	Above options will result in a multi-slider with two buckets of 50%.
 
 
-4. Provide styles for your buckets
+3. Provide styles for your buckets
 	If you'd like to provide custom colors for your buckets,
 	you can provide custom styles for your buckets using the keys as css class selectors. Following css example will result in a red and a blue bucket.
 
