@@ -1,80 +1,92 @@
 // the semi-colon before function invocation is a safety net against concatenated
 // scripts and/or other plugins which may not be closed properly.
-;(function ( $, window, document, undefined ) {
+;(function ( window, document, undefined ) {
 
 	"use strict";
 
-	// Create the defaults once
-	var pluginName = "multiSlider",
-		defaults = {
-		};
-
-	// The actual plugin constructor
-	function Plugin ( element, options ) {
+	function MultiSlider( element, options ) {
 		this.element = element;
-		this.settings = $.extend( {}, defaults, options );
+		this.settings = options;
 		this.init();
 	}
 
-	$.extend(Plugin.prototype, {
-		init: function () {
-			var domTree = $('<div class="bucket-collection"></div>');
-			for (var i in this.settings.buckets) {
-				domTree.append(
-					$('<div></div>')
-						.addClass(this.settings.buckets[i].key).addClass('bucket')
-						.append('<span>' + this.settings.buckets[i].value + '%' + '</span>')
-						.css('height', this.settings.buckets[i].value + '%')
-						.append('<div class="handle"></div>')
-				);
+	function createElement(tagName, attrs, content){
+		var el = document.createElement(tagName);
+		if(attrs){
+			for(var key in attrs){
+				el.setAttribute(key, attrs[key]);
 			}
-			$(this.element).addClass('multibar-slider').append(domTree);
-			this.addDragHandlers(domTree);
-			console.log("initialised " + pluginName);
-		},
-		addDragHandlers: function (domTree) {
-			domTree.find('.handle').mousedown(function (downEvent) {
+		}
+		if(content){
+			el.textContent = content;
+		}
+		return el;
+	}
+
+	function forEachNode(nodeList, fn){
+		Array.prototype.forEach.call(nodeList, fn);
+	}
+
+	MultiSlider.prototype.init = function () {
+
+		var domTree = createElement('div',{'class':'bucket-collection'});
+
+		this.settings.buckets.forEach(function(bucket){
+			var bucketEl = domTree.appendChild(createElement('div', {'class': bucket.key + ' bucket'}));
+			bucketEl.style.height = bucket.value + '%';
+			bucketEl.appendChild(createElement('span',{},bucket.value + '%'));
+			bucketEl.appendChild(createElement('div',{'class':'handle'}));
+		});
+		this.element.classList.add('multibar-slider');
+		this.element.appendChild(domTree);
+
+		this.addDragHandlers(domTree);
+	};
+
+
+	MultiSlider.prototype.addDragHandlers = function (domTree) {
+		forEachNode(domTree.querySelectorAll('.handle'), function(el){
+			el.addEventListener('mousedown', function(downEvent) {
 				var handleEl = downEvent.target;
-				var bar = $(handleEl.parentNode.parentNode);
-				var currentBucket = $(handleEl.parentNode);
-				var nextBucket = currentBucket.next();
+				var bar = handleEl.parentNode.parentNode;
+				var currentBucket = handleEl.parentNode;
+				var nextBucket = currentBucket.nextSibling;
+				var currentBucketValueEl = currentBucket.querySelector('span');
+				var nextBucketValueEl = nextBucket.querySelector('span');
+				var maxHeight = bar.offsetHeight;
+				var currentPercentage = currentBucket.offsetHeight / maxHeight;
+				var nextPercentage = nextBucket.offsetHeight / maxHeight;
 
-				var maxHeight = bar.outerHeight();
-				var currentPercentage = currentBucket.outerHeight() / maxHeight;
-				var nextPercentage = nextBucket.outerHeight() / maxHeight;
-
-				domTree.mousemove(function (moveEvent) {
-					bar.addClass('dragging');
-					currentBucket.addClass('active');
+				var moveEventHandler = function(moveEvent) {
+					bar.classList.add('dragging');
+					currentBucket.classList.add('active');
 
 					var diffPercentage = (moveEvent.pageY - downEvent.pageY) / maxHeight;
 
 					var newPercentage = ((currentPercentage + diffPercentage) * 100).toFixed(1) + '%';
-					currentBucket.css('height', newPercentage).find('span').html(newPercentage);
+					currentBucket.style.height = newPercentage;
+					currentBucketValueEl.textContent = newPercentage;
 
 					var newNextPercentage = ((nextPercentage - diffPercentage) * 100).toFixed(1) + '%';
-					nextBucket.css('height', newNextPercentage).find('span').html(newNextPercentage);
+					nextBucket.style.height = newNextPercentage;
+					nextBucketValueEl.textContent = newNextPercentage;
+				};
 
-				});
+				var upEventHandler = function() {
+					domTree.removeEventListener('mousemove', moveEventHandler);
+					domTree.removeEventListener('mouseup', upEventHandler);
+					bar.classList.remove('dragging');
+					currentBucket.classList.remove('active');
+				}
 
-				domTree.mouseup(function () {
-					domTree.unbind("mousemove");
-					domTree.unbind("mouseup");
-					bar.removeClass('dragging');
-					currentBucket.removeClass('active');
-				});
+				domTree.addEventListener('mousemove', moveEventHandler);
+
+				domTree.addEventListener('mouseup', upEventHandler);
 			});
-		}
-	});
-
-	// A really lightweight plugin wrapper, preventing against multiple instantiations
-	$.fn[ pluginName ] = function ( options ) {
-		return this.each(function() {
-			if ( !$.data( this, "plugin_" + pluginName ) ) {
-				$.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
-			}
 		});
 	};
 
-})( jQuery, window, document );
+	window.MultiSlider = MultiSlider;
+
+})( window, document );
 

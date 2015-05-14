@@ -1,13 +1,10 @@
 {
   "name": "multi-slider",
   "version": "0.1.0",
-  "description": "A multi-slider bar jQuery plugin.",
+  "description": "A multi-slider bar component.",
   "keywords": [
-    "jquery-plugin",
-    "jquery",
     "multi-slider",
-    "ui-component",
-    "plugins"
+    "ui-component"
   ],
   "repository": {
     "type": "git",
