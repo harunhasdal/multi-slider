@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Vertical Multi Slider</title>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react-with-addons.js"></script>
 		<link rel="stylesheet" href="dist/multislider.css">
 		<script src="dist/multislider.js"></script>
 		<style type="text/css">
@@ -42,11 +42,10 @@ code, pre{
 			<div id="demo-1"></div>
 
 			<script>
-			$(function() {
-				$("#demo-1").multiSlider({
-					buckets:[{key:'tory',value: 40}, {key: 'labour', value: 40}, {key: 'other', value: 20}]
-				});
-			});
+			React.render(
+			    React.createElement(MultiSlider, {buckets:[{key:'tory',value: 40}, {key: 'labour', value: 40}, {key: 'other', value: 20}]}),
+			    document.getElementById('demo-1')
+			);
 			</script>
 
 			<div class="copy">

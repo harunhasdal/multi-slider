@@ -17,6 +17,13 @@ module.exports = function(grunt) {
 				" */\n"
 		},
 
+	  react: {
+	    all: {
+	    	files:{
+	    		'src/multislider.js': 'src/multislider.jsx'
+	    	}
+	    }
+	  },
 		// Concat definitions
 		concat: {
 			options: {
@@ -73,8 +80,8 @@ module.exports = function(grunt) {
 		},
 
 		watch: {
-	    files: ['src/*', 'demo/*'],
-	    tasks: ['jshint'],
+	    files: ['src/*.jsx','src/*.css', 'demo/*'],
+	    tasks: ['react'],
 	    options: {
 	    	livereload: true
 	    },
@@ -119,9 +126,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-contrib-connect");
 	grunt.loadNpmTasks("grunt-aws");
+	grunt.loadNpmTasks('grunt-react');
 
-
-	grunt.registerTask("serve",['connect:livereload','watch']);
+	grunt.registerTask("serve",['react','connect:livereload','watch']);
 	grunt.registerTask("build", ["concat", "uglify"]);
 	grunt.registerTask("default", ["jshint", "build"]);
 	grunt.registerTask("travis", ["default"]);

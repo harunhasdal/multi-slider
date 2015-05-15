@@ -1,4 +1,4 @@
-var MultiSlider = React.createClass({displayName: "MultiSlider",
+var MultiSlider = React.createClass({
 	domNode: null,
 
 	getInitialState: function(){
@@ -69,19 +69,19 @@ var MultiSlider = React.createClass({displayName: "MultiSlider",
 					bucketClass += ' active';
 				}
 				return (
-					React.createElement("div", {ref: bucket.key, className: bucketClass, style: {height: percentage}}, 
-						React.createElement("span", null, percentage), 
-						React.createElement("div", {className: "handle", onMouseDown: this.handleMouseDown, "data-key": bucket.key})
-					)
+					<div ref={bucket.key} className={bucketClass} style={{height: percentage}}>
+						<span>{percentage}</span>
+						<div className="handle" onMouseDown={this.handleMouseDown} data-key={bucket.key}></div>
+					</div>
 				);
 			}, this);
 		}
     return (
-    	React.createElement("div", {className: "multibar-slider"}, 
-    		React.createElement("div", {ref: "collectionRoot", className: collectionClass}, 
-    			buckets
-    		)
-    	)
+    	<div className="multibar-slider">
+    		<div ref="collectionRoot" className={collectionClass}>
+    			{buckets}
+    		</div>
+    	</div>
     );
   }
 });
