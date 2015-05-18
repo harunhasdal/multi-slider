@@ -73,15 +73,15 @@
 				};
 
 				var upEventHandler = function() {
-					domTree.removeEventListener('mousemove', moveEventHandler);
-					domTree.removeEventListener('mouseup', upEventHandler);
+					window.removeEventListener('mousemove', moveEventHandler);
+					window.removeEventListener('mouseup', upEventHandler);
 					bar.classList.remove('dragging');
 					currentBucket.classList.remove('active');
 				};
 
-				domTree.addEventListener('mousemove', moveEventHandler);
+				window.addEventListener('mousemove', moveEventHandler);
 
-				domTree.addEventListener('mouseup', upEventHandler);
+				window.addEventListener('mouseup', upEventHandler);
 			});
 		});
 	};
