@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "description": "A multi-slider bar jQuery plugin.",
   "keywords": [
-    "jquery-plugin",
-    "jquery",
+    "react-component",
     "multi-slider",
     "ui-component",
     "plugins"
