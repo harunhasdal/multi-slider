@@ -44,6 +44,14 @@
 	width: 70px;
 	background-color: gray;
 	cursor: pointer;
+	border-radius: 4px;
+	transition: all 0.3s;
+	z-index: 1;
+}
+
+.multibar-slider .bucket .handle:hover{
+	height: 12px;
+	margin-bottom: -3px;
 }
 
 
@@ -61,6 +69,8 @@
 
 .multibar-slider .dragging .bucket.active .handle{
 	background-color: black;
+	height: 12px;
+	margin-bottom: -3px;
 	cursor: pointer;
 }
 
