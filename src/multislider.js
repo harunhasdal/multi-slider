@@ -8,7 +8,11 @@
 	var pluginName = "multiSlider",
 		defaults = {
 		};
-
+	var touchEnabled = 'ontouchstart' in window;
+	var events = ['mousedown', 'mousemove', 'mouseup'];
+	if(touchEnabled){
+		events = ['touchstart','touchmove', 'touchend'];
+	}
 	// The actual plugin constructor
 	function Plugin ( element, options ) {
 		this.element = element;
@@ -30,11 +34,15 @@
 			}
 			$(this.element).addClass('multibar-slider').append(domTree);
 			this.addDragHandlers(domTree);
-			console.log("initialised " + pluginName);
+			console.log("initialised " + pluginName + ' touch: ' + touchEnabled);
 		},
 		addDragHandlers: function (domTree) {
-			domTree.find('.handle').mousedown(function (downEvent) {
-				var handleEl = downEvent.target;
+			domTree.find('.handle').on(events[0],function (event) {
+				var startEvent = event;
+				if(touchEnabled){
+					startEvent = event.originalEvent.touches[0];
+				}
+				var handleEl = startEvent.target;
 				var bar = $(handleEl.parentNode.parentNode);
 				var currentBucket = $(handleEl.parentNode);
 				var nextBucket = currentBucket.next();
@@ -43,11 +51,18 @@
 				var currentPercentage = currentBucket.outerHeight() / maxHeight;
 				var nextPercentage = nextBucket.outerHeight() / maxHeight;
 
-				$(window).mousemove(function (moveEvent) {
+				$(document.body).on(events[1],function (event) {
+					var moveEvent = event;
+
+					if(touchEnabled){
+						event.preventDefault();
+						event.stopPropagation();
+						moveEvent = event.originalEvent.touches[0];
+					}
 					bar.addClass('dragging');
 					currentBucket.addClass('active');
 
-					var diffPercentage = (moveEvent.pageY - downEvent.pageY) / maxHeight;
+					var diffPercentage = (moveEvent.pageY - startEvent.pageY) / maxHeight;
 
 					var newPercentage = ((currentPercentage + diffPercentage) * 100).toFixed(1) + '%';
 					currentBucket.css('height', newPercentage).find('span').html(newPercentage);
@@ -57,9 +72,9 @@
 
 				});
 
-				$(window).mouseup(function () {
-					$(window).unbind("mousemove");
-					$(window).unbind("mouseup");
+				$(document.body).on(events[2],function () {
+					$(document.body).unbind(events[1]);
+					$(document.body).unbind(events[2]);
 					bar.removeClass('dragging');
 					currentBucket.removeClass('active');
 				});

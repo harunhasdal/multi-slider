@@ -1,17 +1,14 @@
 
 .multibar-slider{
 	height: 400px;
-	width: 70px;
-	max-height: 400px;
+	width: 100px;
 	overflow-y: hidden;
 }
 
 .multibar-slider .bucket-collection{
 	height: 100%;
-	width: 60px;
-	list-style: none;
-	padding: 0;
-	margin-left: 5px;
+	width: 90%;
+	margin-left: 5%;
 }
 
 .multibar-slider .bucket{
@@ -31,9 +28,9 @@
 .multibar-slider .bucket .handle{
 	position: absolute;
 	bottom: 0px;
-	left: -5px;
-	height: 6px;
-	width: 70px;
+	left: -5%;
+	right:-5%;
+	height: 8px;
 	background-color: gray;
 	cursor: pointer;
 	border-radius: 4px;
@@ -43,7 +40,7 @@
 
 .multibar-slider .bucket .handle:hover{
 	height: 12px;
-	margin-bottom: -3px;
+	margin-bottom: -2px;
 }
 
 
@@ -62,8 +59,13 @@
 .multibar-slider .dragging .bucket.active .handle{
 	background-color: black;
 	height: 12px;
-	margin-bottom: -3px;
+	margin-bottom: -2px;
 	cursor: pointer;
 }
 
+@media screen and (max-width:966px) {
+   .multibar-slider {
+   	width: 150px !important;
+   }
+}
 
