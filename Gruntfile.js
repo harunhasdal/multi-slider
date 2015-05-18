@@ -112,6 +112,9 @@ module.exports = function(grunt) {
 			      src: "demo/index.html",
 			      dest: "multi-slider/index.html"
 			    },{
+			      src: "demo/common.css",
+			      dest: "multi-slider/common.css"
+			    },{
 			      src: "dist/*",
 			      dest: "multi-slider/"
 			    }]

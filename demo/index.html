@@ -1,43 +1,48 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Vertical Multi Slider</title>
+		<title>Multi Slider</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react-with-addons.js"></script>
 		<link rel="stylesheet" href="dist/multislider.css">
 		<script src="dist/multislider.js"></script>
+		<link rel="stylesheet" href="common.css">
 		<style type="text/css">
-.bucket.tory{
-	background-color: #043140;
-}
+			.bucket.tory{
+				background-color: #043140;
+			}
 
-.bucket.labour{
-	background-color: #F2EA61;
-}
+			.bucket.labour{
+				background-color: #F2EA61;
+			}
 
-.bucket.other{
-	background-color: #F9A532;
-}
+			.bucket.other{
+				background-color: #F9A532;
+			}
 
-#simple {
-	position: relative;
-}
+			#simple {
+				position: relative;
+			}
 
-#simple .copy{
-	position: absolute;
-	left: 100px;
-	top:100px;
-}
-
-code, pre{
-	background-color: #eeeeee;
-}
+			#simple .copy{
+				position: absolute;
+				left: 100px;
+				top:100px;
+			}
 
 		</style>
 	</head>
 	<body>
-
+		<header>
+			<a href="http://rma-consulting.com/">
+				<img src="http://rma-consulting.com/wp-content/uploads/2015/04/rma_logo_test.png" alt="RMA Consulting" id="logo">
+			</a>
+		</header>
+		<section id="jumbo">
+			<h1>Multi Slider Component</h1>
+			<p>This component provides you with an interactive vertical multiple slider, which helps on adjusting numeric values part of a whole. e.g. percentages.</p>
+		</section>
 		<section id="simple">
-			<h2>Simple example</h2>
+			<h2>Default behaviour</h2>
 
 			<div id="demo-1"></div>
 
@@ -51,27 +56,27 @@ code, pre{
 			<div class="copy">
 
 			<p>Initialised with
-			<code><pre>buckets:[{key:'tory',value: 40}, {key: 'labour', value: 40}, {key: 'other', value: 20}]</pre></code>
+			<pre><code>buckets:[{key:'tory',value: 40}, {key: 'labour', value: 40}, {key: 'other', value: 20}]</code></pre>
 			And css rules
-			<code><pre>.bucket.tory{
+			<pre><code>
+.bucket.tory{
 	background-color: #043140;
 }
-
 .bucket.labour{
 	background-color: #F2EA61;
 }
-
 .bucket.other{
 	background-color: #F9A532;
-}
-			</pre></code>
+}</code></pre>
 			</p>
 			</div>
 
 		</section>
 
+
 		<style>#forkongithub a{background:#F2EA61;color:#043140;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#F9A532;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#043140;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:absolute;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}
 		</style>
 		<span id="forkongithub"><a href="https://github.com/harunhasdal/multi-slider">Fork me on GitHub</a></span>
+
 	</body>
 </html>
