@@ -22,8 +22,8 @@ var MultiSlider = React.createClass({
 			nextPercentage: handleEl.parentNode.nextSibling.offsetHeight / this.domNode.offsetHeight
 		});
 
-		this.domNode.addEventListener('mousemove', this.moveEventHandler);
-		this.domNode.addEventListener('mouseup', this.upEventHandler);
+		window.addEventListener('mousemove', this.moveEventHandler);
+		window.addEventListener('mouseup', this.upEventHandler);
 	},
 	moveEventHandler: function(moveEvent) {
 
@@ -39,8 +39,8 @@ var MultiSlider = React.createClass({
 
 	},
 	upEventHandler: function() {
-		this.domNode.removeEventListener('mousemove', this.moveEventHandler);
-		this.domNode.removeEventListener('mouseup', this.upEventHandler);
+		window.removeEventListener('mousemove', this.moveEventHandler);
+		window.removeEventListener('mouseup', this.upEventHandler);
 		this.setState({dragging: false, currentKey: null, nextKey: null});
 	},
 	setBucketPercentages: function(buckets, currentKey, nextKey, currentPercentage, nextPercentage){
