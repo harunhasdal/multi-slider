@@ -51,7 +51,7 @@
 				var currentPercentage = currentBucket.outerHeight() / maxHeight;
 				var nextPercentage = nextBucket.outerHeight() / maxHeight;
 
-				domTree.mousemove(function (moveEvent) {
+				$(window).mousemove(function (moveEvent) {
 					bar.addClass('dragging');
 					currentBucket.addClass('active');
 
@@ -65,9 +65,9 @@
 
 				});
 
-				domTree.mouseup(function () {
-					domTree.unbind("mousemove");
-					domTree.unbind("mouseup");
+				$(window).mouseup(function () {
+					$(window).unbind("mousemove");
+					$(window).unbind("mouseup");
 					bar.removeClass('dragging');
 					currentBucket.removeClass('active');
 				});
