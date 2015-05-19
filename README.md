@@ -1,18 +1,16 @@
 # Multi Slider Bar
 
-### A multi slider bar jquery plugin
-
-
+### A multi slider bar angularjs directive
 
 ## Usage
 
-1. Include jQuery:
+1. Include Angular:
 
 	```html
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 	```
 
-2. Include plugin's code:
+2. Include module containing the directive:
 
 	```html
 	<link rel="stylesheet" href="dist/multislider.css">
@@ -22,17 +20,25 @@
 	<script src="dist/multi-slider.min.js"></script>
 	```
 
-3. Call the plugin:
+3. Include the directive in your markup
 
-	```javascript
-	$("#element").multiSlider({
-		buckets:[{key:'class1',value: 50}, {key: 'class2', value: 50}]
-	});
+	```html
+	<body ng-app="demoApp">
+		...
+		<ng-multi-slider buckets="[{key:'class1',value: 50}, {key: 'class2', value: 50}]"></ng-multi-slider>
+		...
+	</body>
 	```
+
 	Above options will result in a multi-slider with two buckets of 50%.
 
+4. Initialise the app module or a controller with injecting the module
 
-4. Provide styles for your buckets
+	```javascript
+	angular.module('demoApp', ['rmalabs-components']);
+	```
+
+5. Provide styles for your buckets
 	If you'd like to provide custom colors for your buckets,
 	you can provide custom styles for your buckets using the keys as css class selectors. Following css example will result in a red and a blue bucket.
 

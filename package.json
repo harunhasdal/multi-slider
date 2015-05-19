@@ -1,10 +1,10 @@
 {
   "name": "multi-slider",
   "version": "0.1.0",
-  "description": "A multi-slider bar jQuery plugin.",
+  "description": "A multi-slider bar angular directive.",
   "keywords": [
-    "jquery-plugin",
-    "jquery",
+    "angular-directive",
+    "angularjs",
     "multi-slider",
     "ui-component",
     "plugins"
