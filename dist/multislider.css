@@ -8,18 +8,15 @@
  */
 
 .multibar-slider{
-	height: 400px;
-	width: 70px;
-	max-height: 400px;
+	height: 60vh;
+	width: 100px;
 	overflow-y: hidden;
 }
 
 .multibar-slider .bucket-collection{
 	height: 100%;
-	width: 60px;
-	list-style: none;
-	padding: 0;
-	margin-left: 5px;
+	width: 90%;
+	margin-left: 5%;
 }
 
 .multibar-slider .bucket{
@@ -39,19 +36,27 @@
 .multibar-slider .bucket .handle{
 	position: absolute;
 	bottom: 0px;
-	left: -5px;
-	height: 6px;
-	width: 70px;
+	left: -5%;
+	right:-5%;
+	height: 8px;
 	background-color: gray;
 	cursor: pointer;
 	border-radius: 4px;
-	transition: all 0.3s;
+	transition: all 0.2s;
 	z-index: 1;
+}
+
+.multibar-slider.touch-enabled .bucket .handle{
+	height: 48px;
+}
+
+.multibar-slider.touch-enabled .bucket .handle:hover{
+	height: 52px;
 }
 
 .multibar-slider .bucket .handle:hover{
 	height: 12px;
-	margin-bottom: -3px;
+	margin-bottom: -2px;
 }
 
 
@@ -70,8 +75,21 @@
 .multibar-slider .dragging .bucket.active .handle{
 	background-color: black;
 	height: 12px;
-	margin-bottom: -3px;
+	margin-bottom: -2px;
 	cursor: pointer;
 }
 
+.multibar-slider.touch-enabled .dragging .bucket.active .handle{
+	height: 52px;
+	width: 170%;
+	box-shadow: 0px 5px 15px #888888;
+	left: -35%;
+	right: -35%;
+}
+
+@media screen and (max-width:966px) {
+   .multibar-slider {
+   	width: 150px !important;
+   }
+}
 

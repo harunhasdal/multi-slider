@@ -14,21 +14,28 @@
 
 	// Create the defaults once
 	var pluginName = "multiSlider",
-		defaults = {
-		};
+			defaults = {
+			};
+
+	var touchEnabled = 'ontouchstart' in window;
 
 	// The actual plugin constructor
 	function Plugin ( element, options ) {
-		this.element = element;
+		this.element = $(element);
 		this.settings = $.extend( {}, defaults, options );
+		this.state = {};
 		this.init();
+	}
+
+	function toPercent( value ) {
+		return Number(value).toFixed(1) + '%';
 	}
 
 	$.extend(Plugin.prototype, {
 		init: function () {
-			var domTree = $('<div class="bucket-collection"></div>');
+			var bucketList = $('<div class="bucket-collection"></div>');
 			for (var i in this.settings.buckets) {
-				domTree.append(
+				bucketList.append(
 					$('<div></div>')
 						.addClass(this.settings.buckets[i].key).addClass('bucket')
 						.append('<span>' + this.settings.buckets[i].value + '%' + '</span>')
@@ -36,42 +43,81 @@
 						.append('<div class="handle"></div>')
 				);
 			}
-			$(this.element).addClass('multibar-slider').append(domTree);
-			this.addDragHandlers(domTree);
-			console.log("initialised " + pluginName);
+			if(touchEnabled){
+				this.element.addClass('touch-enabled');
+			}
+			this.element.addClass('multibar-slider').append(bucketList);
+			this.bucketList = bucketList;
+			this.addDragHandlers();
 		},
-		addDragHandlers: function (domTree) {
-			domTree.find('.handle').mousedown(function (downEvent) {
-				var handleEl = downEvent.target;
-				var bar = $(handleEl.parentNode.parentNode);
-				var currentBucket = $(handleEl.parentNode);
-				var nextBucket = currentBucket.next();
+		setDraggingState: function(handleEl, startPoint){
+				this.state.bucketEl = $(handleEl.parentElement);
+				this.state.neigbourEl = this.state.bucketEl.next();
+				this.state.totalHeight = this.element.outerHeight();
+				this.state.bucketInitialHeight = this.state.bucketEl.outerHeight() / this.state.totalHeight;
+				this.state.neighbourInitialHeight = this.state.neigbourEl.outerHeight() / this.state.totalHeight;
+				this.state.startPoint = startPoint;
+		},
+		startDragging: function(){
+			this.bucketList.addClass('dragging');
+			this.state.bucketEl.addClass('active');
+		},
+		endDragging: function(){
+			this.bucketList.removeClass('dragging');
+			this.state.bucketEl.removeClass('active');
+			this.state = {totalHeight: this.state.totalHeight};
+		},
+		executeDrag: function(point){
+			var diff = (point.y - this.state.startPoint.y) / this.state.totalHeight;
 
-				var maxHeight = bar.outerHeight();
-				var currentPercentage = currentBucket.outerHeight() / maxHeight;
-				var nextPercentage = nextBucket.outerHeight() / maxHeight;
+			var value = toPercent((this.state.bucketInitialHeight + diff) * 100);
+			this.state.bucketEl.css('height', value).find('span').html(value);
 
-				$(window).mousemove(function (moveEvent) {
-					bar.addClass('dragging');
-					currentBucket.addClass('active');
+			var neighbourValue = toPercent((this.state.neighbourInitialHeight - diff) * 100);
+			this.state.neigbourEl.css('height', neighbourValue).find('span').html(neighbourValue);
+		},
+		addDragHandlers: function () {
+			var bodyEl = $(document.body);
+			var handles = this.element.find('.handle');
 
-					var diffPercentage = (moveEvent.pageY - downEvent.pageY) / maxHeight;
+			handles.on('mousedown',function (downEvent) {
 
-					var newPercentage = ((currentPercentage + diffPercentage) * 100).toFixed(1) + '%';
-					currentBucket.css('height', newPercentage).find('span').html(newPercentage);
+				this.setDraggingState(downEvent.target, {y: downEvent.pageY});
 
-					var newNextPercentage = ((nextPercentage - diffPercentage) * 100).toFixed(1) + '%';
-					nextBucket.css('height', newNextPercentage).find('span').html(newNextPercentage);
+				bodyEl.on('mousemove',function (moveEvent) {
+					this.executeDrag({y: moveEvent.pageY});
+				}.bind(this));
 
-				});
+				bodyEl.on('mouseup',function () {
+					bodyEl.unbind('mousemove');
+					bodyEl.unbind('mouseup');
+					this.endDragging();
+				}.bind(this));
 
-				$(window).mouseup(function () {
-					$(window).unbind("mousemove");
-					$(window).unbind("mouseup");
-					bar.removeClass('dragging');
-					currentBucket.removeClass('active');
-				});
-			});
+				this.startDragging();
+			}.bind(this));
+
+			if(touchEnabled){
+				handles.on('touchstart', function(startEvent){
+
+					var firstTouch = startEvent.originalEvent.touches[0];
+					this.setDraggingState(firstTouch.target, {y: firstTouch.pageY});
+
+					bodyEl.on('touchmove', function(moveEvent){
+						moveEvent.preventDefault();
+						moveEvent.stopPropagation();
+						this.executeDrag({y: moveEvent.originalEvent.touches[0].pageY});
+					}.bind(this));
+
+					bodyEl.on('touchend', function(){
+						bodyEl.unbind('touchmove');
+						bodyEl.unbind('touchend');
+						this.endDragging();
+					}.bind(this));
+
+					this.startDragging();
+				}.bind(this));
+			}
 		}
 	});
 
