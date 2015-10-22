@@ -2,7 +2,7 @@
 
 ### A multi slider bar jquery plugin
 
-
+Check out other branches for implementations with different libraries.
 
 ## Usage
 
